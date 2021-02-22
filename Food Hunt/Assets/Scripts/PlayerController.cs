@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 	public float jumpForce;
 	public float gravityModifier;
 	public Camera mainCamera;
+	public float maxHunger; //amount of hunger player can have
+	public float hungerGain; //controls how fast player gets hungry
 
 	private Rigidbody playerBody;
 	private float horizontal;
@@ -15,24 +17,36 @@ public class PlayerController : MonoBehaviour
 	private bool jumping;
 	private bool jumpInput;
 	private Vector3 cameraOffset;
+	private float currentHunger;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+	// Start is called before the first frame update
+	void Start()
+	{
 		playerBody = GetComponent<Rigidbody>();
 		Physics.gravity *= gravityModifier;
 		cameraOffset = transform.position - mainCamera.transform.position;
-    }
+		currentHunger = 0f;
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
+	// Update is called once per frame
+	void Update()
+	{
 		//read inputs from player
 		horizontal = Input.GetAxis("Horizontal");
 		vertical = Input.GetAxis("Vertical");
 		jumpInput = Input.GetButton("Jump");
 
-    }
+
+		//reached hunger limit
+		if (currentHunger >= maxHunger) {
+			Debug.Log("Game Over");
+			return;
+		}
+		//increase hunger over time
+		currentHunger += hungerGain;
+		Debug.Log("Hunger bar: " + currentHunger);
+		
+	}
 
 	private void FixedUpdate() {
 		//check if player can jump
@@ -47,7 +61,7 @@ public class PlayerController : MonoBehaviour
 		mainCamera.transform.LookAt(transform);
 	}
 
-	/*** Move player upwards using a force ***/
+	/*** Move player upwards ***/
 	private void PlayerJump() {
 		playerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 		jumping = true;
@@ -71,10 +85,19 @@ public class PlayerController : MonoBehaviour
 	{
 		//check if player touched food pickup
 		if (other.CompareTag("Food")) {
+			//lower hunger bar
+			EatFood(other.gameObject.GetComponent<FoodController>().calories);
+
 			//destroy the food object
 			Destroy(other.gameObject);
-
-			//TODO do something for the player
+		}
+	}
+	/*** Lowers player hunger bar based on food given ***/
+	private void EatFood(float calories) {
+		currentHunger -= calories;
+		//don't let hunger go below zero
+		if (currentHunger < 0) {
+			currentHunger = 0f;
 		}
 	}
 }

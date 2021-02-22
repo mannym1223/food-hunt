@@ -7,6 +7,7 @@ public class FoodController : MonoBehaviour
 	public float rotateSpeed;
 	public float elevateSpeed;
 	public float moveDist;
+	public float calories;
 
 	private Vector3 rotation;
 	private Vector3 startPoint;
