@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
 	private float vertical;
 	private bool jumping;
 	private bool jumpInput;
-	private Vector3 cameraOffset;
 	private float currentHunger;
 
 	// Start is called before the first frame update
@@ -24,7 +23,6 @@ public class PlayerController : MonoBehaviour
 	{
 		playerBody = GetComponent<Rigidbody>();
 		Physics.gravity *= gravityModifier;
-		cameraOffset = transform.position - mainCamera.transform.position;
 		currentHunger = 0f;
 	}
 
@@ -35,6 +33,7 @@ public class PlayerController : MonoBehaviour
 		horizontal = Input.GetAxis("Horizontal");
 		vertical = Input.GetAxis("Vertical");
 		jumpInput = Input.GetButton("Jump");
+		
 
 
 		//reached hunger limit
@@ -54,11 +53,6 @@ public class PlayerController : MonoBehaviour
 			PlayerJump();
 		}
 		MovePlayer();
-
-		//keep camera at offset
-		mainCamera.transform.position = transform.position - cameraOffset;
-		//keep camera looking at player
-		mainCamera.transform.LookAt(transform);
 	}
 
 	/*** Move player upwards ***/
