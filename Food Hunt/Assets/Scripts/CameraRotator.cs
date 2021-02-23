@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class CameraRotator : MonoBehaviour
 {
-
     public float cameraSpeed;
 
-    private float mouseDirection;
-    private Vector3 mousePosition;
+    private float mouseX;
+    //private float mouseY; //to rotate vertically
 
 	private void Start()
 	{
-        mousePosition = Input.mousePosition;
+        //don't show mouse cursor on screen
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
 	}
 
 	// Update is called once per frame
 	void Update()
     {
         //get player horizontal mouse input
-        mouseDirection = Input.mousePosition.x - mousePosition.x;
+        mouseX = Input.GetAxis("Mouse X");
 
-        transform.Rotate(0, cameraSpeed * Time.deltaTime * mouseDirection, 0);
-
-        mousePosition = Input.mousePosition;
+        transform.Rotate(0, cameraSpeed * Time.deltaTime * mouseX, 0);
     }
 }
