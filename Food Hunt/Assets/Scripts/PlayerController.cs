@@ -63,10 +63,20 @@ public class PlayerController : MonoBehaviour
 
 	/*** Move player based on inputs ***/
 	private void MovePlayer() {
+		//base movement on camera view
+		Vector3 moveForward = mainCamera.transform.forward;
+		Vector3 moveRight = mainCamera.transform.right;
+		//prevent movement on y axis
+		moveForward.y = 0f;
+		moveRight.y = 0f;
+		//keep speed consistent
+		moveForward.Normalize();
+		moveRight.Normalize();
+
 		//move player left or right
-		transform.Translate(Vector3.right * horizontal * speed * Time.deltaTime);
+		transform.Translate(moveRight * horizontal * speed * Time.deltaTime);
 		//move player forward or backward
-		transform.Translate(Vector3.forward * vertical * speed * Time.deltaTime);
+		transform.Translate(moveForward * vertical * speed * Time.deltaTime);
 	}
 
 	private void OnCollisionEnter(Collision collision)
