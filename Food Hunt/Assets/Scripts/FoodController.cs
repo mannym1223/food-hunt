@@ -14,13 +14,16 @@ public class FoodController : MonoBehaviour
 	private Vector3 lowPoint;
 	private bool movingDown = true;
 
-    // Start is called before the first frame update
-    void Start()
+	[HideInInspector] public new AudioSource audio;
+
+	// Start is called before the first frame update
+	void Start()
     {
 		rotation = new Vector3(0, rotateSpeed, 0);
 		startPoint = transform.position;
 		lowPoint = transform.position;
 		lowPoint.y -= moveDist;
+		audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -47,4 +50,22 @@ public class FoodController : MonoBehaviour
 			}
 		}
     }
+
+	private void OnTriggerEnter(Collider other)
+	{
+		// only player can trigger audio
+		if (audio != null && other.CompareTag("Player"))
+		{
+			Debug.Log("---Audio clip played---");
+			audio.Play();
+			//wait for audio clip to end before destroying object
+			Invoke("DestroyPickup", audio.clip.length);
+		}
+	}
+
+	private void DestroyPickup()
+	{
+		//destroy game object
+		Destroy(gameObject);
+	}
 }

@@ -103,9 +103,6 @@ public class PlayerController : MonoBehaviour
 			//lower hunger bar
 			EatFood(other.gameObject.GetComponent<FoodController>().calories);
 
-			//destroy the food object
-			Destroy(other.gameObject);
-
 			//item picked up callback
 			if (OnPickup != null)
 			{
