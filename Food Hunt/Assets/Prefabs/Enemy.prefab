@@ -17,8 +17,8 @@ GameObject:
   - component: {fileID: 5741851046545826642}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_TagString: Enemy
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -126,9 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visionStrength: 5
-  path:
-  - {fileID: 0}
-  - {fileID: 0}
+  path: []
 --- !u!195 &5741851046545826642
 NavMeshAgent:
   m_ObjectHideFlags: 0

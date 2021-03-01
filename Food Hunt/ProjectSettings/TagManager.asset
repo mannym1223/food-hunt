@@ -7,6 +7,7 @@ TagManager:
   - Floor
   - Pickup
   - Food
+  - Enemy
   layers:
   - Default
   - TransparentFX
