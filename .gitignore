@@ -10,6 +10,10 @@
 [Ll]ogs/
 [Mm]emoryCaptures/
 
+# Ignore unused assets
+**/CasualGameSounds/
+CasualGameSounds.meta
+
 # Ignore lightmaps
 [Ll]ightingData.asset
 **/Scenes/**/*.png
