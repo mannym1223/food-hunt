@@ -9,6 +9,13 @@ public class LevelManager : MonoBehaviour
 	public delegate void levelCompleteAction();
 	public static event levelCompleteAction OnLevelComplete;
 
+	private AudioSource audio;
+
+	private void Awake()
+	{
+		audio = GetComponent<AudioSource>();
+	}
+
 	private void OnEnable()
 	{
 		PlayerController.OnPickup += UpdateLevelPickups;
@@ -29,6 +36,8 @@ public class LevelManager : MonoBehaviour
 		{
 			//end the level
 			Debug.Log("You Win!");
+			//play level complete audio
+			audio.Play();
 			//alert other objects that level is over
 			OnLevelComplete();
 		}
