@@ -13,8 +13,7 @@ public class FoodController : MonoBehaviour
 	private Vector3 startPoint;
 	private Vector3 lowPoint;
 	private bool movingDown = true;
-
-	[HideInInspector] public new AudioSource audio;
+	private AudioSource audio;
 
 	// Start is called before the first frame update
 	void Start()
