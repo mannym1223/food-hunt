@@ -129,8 +129,8 @@ MonoBehaviour:
   jumpForce: 55
   gravityModifier: 2
   mainCamera: {fileID: 8109130586060977971}
-  maxHunger: 1000
-  hungerGain: 0.1
+  maxHunger: 10000
+  hungerGain: 1
 --- !u!1 &1185361447335027147
 GameObject:
   m_ObjectHideFlags: 0

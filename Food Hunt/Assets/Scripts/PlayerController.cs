@@ -17,6 +17,11 @@ public class PlayerController : MonoBehaviour
 	private bool jumping;
 	private bool jumpInput;
 	private float currentHunger;
+	private bool stopPlayer;
+
+	//event to alert other classes that player picked up item
+	public delegate void pickupAction();
+	public static event pickupAction OnPickup;
 
 	// Start is called before the first frame update
 	void Start()
@@ -24,17 +29,21 @@ public class PlayerController : MonoBehaviour
 		playerBody = GetComponent<Rigidbody>();
 		Physics.gravity *= gravityModifier;
 		currentHunger = 0f;
+		stopPlayer = false;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+		//don't let player move if not active
+		if (stopPlayer)
+		{
+			return;
+		}
 		//read inputs from player
 		horizontal = Input.GetAxis("Horizontal");
 		vertical = Input.GetAxis("Vertical");
 		jumpInput = Input.GetButton("Jump");
-		
-
 
 		//reached hunger limit
 		if (currentHunger >= maxHunger) {
@@ -43,8 +52,10 @@ public class PlayerController : MonoBehaviour
 		}
 		//increase hunger over time
 		currentHunger += hungerGain;
-		Debug.Log("Hunger bar: " + currentHunger);
-		
+		if (currentHunger % 100 <= 0.1)
+		{
+			Debug.Log("Hunger bar: " + currentHunger);
+		}
 	}
 
 	private void FixedUpdate() {
@@ -94,6 +105,12 @@ public class PlayerController : MonoBehaviour
 
 			//destroy the food object
 			Destroy(other.gameObject);
+
+			//item picked up callback
+			if (OnPickup != null)
+			{
+				OnPickup();
+			}
 		}
 	}
 	/*** Lowers player hunger bar based on food given ***/
@@ -103,5 +120,24 @@ public class PlayerController : MonoBehaviour
 		if (currentHunger < 0) {
 			currentHunger = 0f;
 		}
+	}
+
+	void EndLevel()
+	{
+		//disable player movement
+		stopPlayer = true;
+		horizontal = 0f;
+		vertical = 0f;
+		jumpInput = false;
+	}
+
+	private void OnEnable()
+	{
+		LevelManager.OnLevelComplete += EndLevel;
+	}
+
+	private void OnDisable()
+	{
+		LevelManager.OnLevelComplete -= EndLevel;
 	}
 }

@@ -121,7 +121,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2548768123587954137}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7da3ba93a27b2ff44a529f098a09ed75, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
@@ -147,6 +147,7 @@ MonoBehaviour:
   rotateSpeed: 1
   elevateSpeed: 0.25
   moveDist: 0.7
+  calories: 2500
 --- !u!65 &670288308242462131
 BoxCollider:
   m_ObjectHideFlags: 0
