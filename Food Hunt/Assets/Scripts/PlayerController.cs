@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 	public Camera mainCamera;
 	public float maxHunger; //amount of hunger player can have
 	public float hungerGain; //controls how fast player gets hungry
+	public float knockbackForce; //control how far player gets knocked back
 
 	private Rigidbody playerBody;
 	private float horizontal;
@@ -90,10 +91,24 @@ public class PlayerController : MonoBehaviour
 		transform.Translate(moveForward * vertical * speed * Time.deltaTime);
 	}
 
+	/*** Knock player back in opposite direction of given transform ***/
+	private void KnockbackPlayer(Transform givenTransform)
+	{
+		//push player in opposite direction of object
+		playerBody.AddForce(givenTransform.forward.normalized * knockbackForce, ForceMode.Impulse);
+	}
+
 	private void OnCollisionEnter(Collision collision)
 	{
 		//player is not midair anymore
 		jumping = false;
+
+		//check if player hit enemy
+		if (collision.gameObject.CompareTag("Enemy"))
+		{
+			//knockback player
+			KnockbackPlayer(collision.transform);
+		}
 	}
 
 	private void OnTriggerEnter(Collider other)

@@ -12,12 +12,14 @@ public class EnemyController : MonoBehaviour
 	private int currentPath;
 	private Transform playerTransform;
 	private NavMeshAgent agent;
+	private AudioSource audio;
 
     // Start is called before the first frame update
     void Start() {
 		enemyBody = GetComponent<Rigidbody>();
 		playerTransform = GameObject.Find("Player").transform;
 		agent = GetComponent<NavMeshAgent>();
+		audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -39,6 +41,15 @@ public class EnemyController : MonoBehaviour
 		}
 		
     }
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		//play hit sound when colliding with player
+		if (collision.gameObject.CompareTag("Player"))
+		{
+			audio.Play();
+		}
+	}
 
 	private void ChangeDestination(Vector3 destination) {
 		agent.destination = destination;

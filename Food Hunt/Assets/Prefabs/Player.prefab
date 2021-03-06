@@ -131,6 +131,7 @@ MonoBehaviour:
   mainCamera: {fileID: 8109130586060977971}
   maxHunger: 10000
   hungerGain: 1
+  knockbackForce: 50
 --- !u!1 &1185361447335027147
 GameObject:
   m_ObjectHideFlags: 0
