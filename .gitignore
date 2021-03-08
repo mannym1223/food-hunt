@@ -13,6 +13,8 @@
 # Ignore unused assets
 **/CasualGameSounds/
 CasualGameSounds.meta
+**/SimpleUI/
+SimpleUI.meta
 
 # Ignore lightmaps
 [Ll]ightingData.asset
