@@ -24,10 +24,14 @@ public class PlayerController : MonoBehaviour
 	public delegate void pickupAction();
 	public static event pickupAction OnPickup;
 
+	private void Awake()
+	{
+		playerBody = GetComponent<Rigidbody>();
+	}
+
 	// Start is called before the first frame update
 	void Start()
 	{
-		playerBody = GetComponent<Rigidbody>();
 		Physics.gravity *= gravityModifier;
 		currentHunger = 0f;
 		stopPlayer = false;

@@ -15,6 +15,11 @@ public class FoodController : MonoBehaviour
 	private bool movingDown = true;
 	private AudioSource audio;
 
+	private void Awake()
+	{
+		audio = GetComponent<AudioSource>();
+	}
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -22,7 +27,6 @@ public class FoodController : MonoBehaviour
 		startPoint = transform.position;
 		lowPoint = transform.position;
 		lowPoint.y -= moveDist;
-		audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

@@ -14,12 +14,17 @@ public class EnemyController : MonoBehaviour
 	private NavMeshAgent agent;
 	private AudioSource audio;
 
-    // Start is called before the first frame update
-    void Start() {
+	private void Awake()
+	{
 		enemyBody = GetComponent<Rigidbody>();
 		playerTransform = GameObject.Find("Player").transform;
 		agent = GetComponent<NavMeshAgent>();
 		audio = GetComponent<AudioSource>();
+	}
+
+	// Start is called before the first frame update
+	void Start() {
+		
     }
 
     // Update is called once per frame
