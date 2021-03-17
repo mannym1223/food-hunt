@@ -13,12 +13,14 @@ public class PlayerController : MonoBehaviour
 	public float knockbackForce; //control how far player gets knocked back
 
 	private Rigidbody playerBody;
-	private float horizontal;
-	private float vertical;
-	private bool jumping;
-	private bool jumpInput;
-	private float currentHunger;
-	private bool stopPlayer;
+
+	//variable static to be updated by unity events
+	private static float horizontal;
+	private static float vertical;
+	private static bool jumping;
+	private static bool jumpInput;
+	private static float currentHunger;
+	private static bool stopPlayer;
 
 	//event to alert other classes that player picked up item
 	public delegate void pickupAction();
@@ -43,12 +45,20 @@ public class PlayerController : MonoBehaviour
 		//don't let player move if not active
 		if (stopPlayer)
 		{
+			//Debug.Log("Stop player == true");
 			return;
 		}
 		//read inputs from player
 		horizontal = Input.GetAxis("Horizontal");
 		vertical = Input.GetAxis("Vertical");
 		jumpInput = Input.GetButton("Jump");
+
+		//check if player can jump
+		if (jumpInput && !jumping)
+		{
+			PlayerJump();
+		}
+		MovePlayer();
 
 		//reached hunger limit
 		if (currentHunger >= maxHunger) {
@@ -61,14 +71,19 @@ public class PlayerController : MonoBehaviour
 		{
 			Debug.Log("Hunger bar: " + currentHunger);
 		}
+		
 	}
 
-	private void FixedUpdate() {
-		//check if player can jump
-		if (jumpInput && !jumping) {
-			PlayerJump();
-		}
-		MovePlayer();
+	/*** Stops all player movement ***/
+	public void DisableMovement()
+	{
+		Debug.Log("Disabled movement");
+		//disable player movement
+		
+		stopPlayer = true;
+		horizontal = 0f;
+		vertical = 0f;
+		jumpInput = false;
 	}
 
 	/*** Move player upwards ***/
@@ -136,24 +151,5 @@ public class PlayerController : MonoBehaviour
 		if (currentHunger < 0) {
 			currentHunger = 0f;
 		}
-	}
-
-	void EndLevel()
-	{
-		//disable player movement
-		stopPlayer = true;
-		horizontal = 0f;
-		vertical = 0f;
-		jumpInput = false;
-	}
-
-	private void OnEnable()
-	{
-		LevelManager.OnLevelComplete += EndLevel;
-	}
-
-	private void OnDisable()
-	{
-		LevelManager.OnLevelComplete -= EndLevel;
 	}
 }

@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LevelManager : MonoBehaviour
 {
     public List<GameObject> requiredPickups;
 
-	public delegate void levelCompleteAction();
-	public static event levelCompleteAction OnLevelComplete;
+	[Header("Event called when level ends")]
+	public UnityEvent levelCompleteEvent;
 
 	private AudioSource audio;
 
@@ -25,9 +26,10 @@ public class LevelManager : MonoBehaviour
 	{
 		PlayerController.OnPickup -= UpdateLevelPickups;
 	}
+
 	/*** Checks if player has completed the level by acquiring all required
 	 * pickups ***/
-	void UpdateLevelPickups()
+	public void UpdateLevelPickups()
 	{
 		//decrease number of pickups left
 		requiredPickups.RemoveAt(requiredPickups.Count-1);
@@ -39,7 +41,7 @@ public class LevelManager : MonoBehaviour
 			//play level complete audio
 			audio.Play();
 			//alert other objects that level is over
-			OnLevelComplete();
+			levelCompleteEvent.Invoke();
 		}
 	}
 }
