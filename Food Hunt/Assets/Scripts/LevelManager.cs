@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     public List<GameObject> requiredPickups;
 
+	//Event to alert that the level is complete
 	[Header("Event called when level ends")]
 	public UnityEvent levelCompleteEvent;
 
@@ -15,16 +16,6 @@ public class LevelManager : MonoBehaviour
 	private void Awake()
 	{
 		audio = GetComponent<AudioSource>();
-	}
-
-	private void OnEnable()
-	{
-		PlayerController.OnPickup += UpdateLevelPickups;
-	}
-
-	private void OnDisable()
-	{
-		PlayerController.OnPickup -= UpdateLevelPickups;
 	}
 
 	/*** Checks if player has completed the level by acquiring all required

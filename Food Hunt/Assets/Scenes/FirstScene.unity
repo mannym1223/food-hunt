@@ -363,6 +363,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64900106}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &112777408 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2518745436105152931, guid: 9d61a3b0ae3293843a42e6681e554e76,
+    type: 3}
+  m_PrefabInstance: {fileID: 2518745437727578006}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73e2ffba3e51a5b499a862996dd75510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &127763686 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2675332534053912261, guid: 448d744b29f90f741aa096a8a7bcb7b0,
@@ -2351,6 +2363,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: playerPickupEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: playerPickupEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: playerPickupEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: playerPickupEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 112777408}
+    - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: playerPickupEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateLevelPickups
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: playerPickupEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8109130586060977970, guid: 965105accf75f0649aac11bd5ebe4f00,
         type: 3}

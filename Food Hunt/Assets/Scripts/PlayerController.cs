@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,8 +24,7 @@ public class PlayerController : MonoBehaviour
 	private static bool stopPlayer;
 
 	//event to alert other classes that player picked up item
-	public delegate void pickupAction();
-	public static event pickupAction OnPickup;
+	public UnityEvent playerPickupEvent;
 
 	private void Awake()
 	{
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
 		Physics.gravity *= gravityModifier;
 		currentHunger = 0f;
 		stopPlayer = false;
+		Debug.Log("Time Scale: " + Time.timeScale);
 	}
 
 	// Update is called once per frame
@@ -138,10 +139,7 @@ public class PlayerController : MonoBehaviour
 			EatFood(other.gameObject.GetComponent<FoodController>().calories);
 
 			//item picked up callback
-			if (OnPickup != null)
-			{
-				OnPickup();
-			}
+			playerPickupEvent.Invoke();
 		}
 	}
 	/*** Lowers player hunger bar based on food given ***/

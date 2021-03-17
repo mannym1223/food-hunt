@@ -33,7 +33,7 @@ public class FoodController : MonoBehaviour
     void Update()
     {
 		//rotate the food pickup
-		transform.Rotate(rotation);
+		transform.Rotate(rotation * Time.deltaTime);
 
 		//move pickup up and down slowly
 		if (movingDown) {
