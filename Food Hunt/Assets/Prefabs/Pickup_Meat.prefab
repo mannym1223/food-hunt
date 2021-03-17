@@ -145,11 +145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2bf656f651326429dc522954746c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 1
+  rotateSpeed: 10
   elevateSpeed: 0.25
   moveDist: 0.7
   calories: 2500
-  audio: {fileID: -5506117441766402103}
 --- !u!65 &670288308242462131
 BoxCollider:
   m_ObjectHideFlags: 0
