@@ -2845,6 +2845,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
         type: 3}
+      propertyPath: hungerUpdateEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
       propertyPath: playerPickupEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -2866,6 +2871,31 @@ PrefabInstance:
     - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
         type: 3}
       propertyPath: playerPickupEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: hungerUpdateEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: hungerUpdateEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: hungerUpdateEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8093597}
+    - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: hungerUpdateEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateHungerBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764415171328685205, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: hungerUpdateEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8109130586060977970, guid: 965105accf75f0649aac11bd5ebe4f00,

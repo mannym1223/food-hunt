@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
+[System.Serializable] public class UnityEventFloat : UnityEvent<float> { }
+
 public class PlayerController : MonoBehaviour
 {
 	public float speed;
@@ -27,8 +30,11 @@ public class PlayerController : MonoBehaviour
 	public float hungerWaitTime;
 	public WaitForSeconds waitForHunger;
 
-	//event to alert other classes that player picked up item
+	//event to alert that player picked up item
 	public UnityEvent playerPickupEvent;
+
+	//event to alert that hunger has been updated
+	public UnityEventFloat hungerUpdateEvent;
 
 	private void Awake()
 	{
@@ -76,6 +82,7 @@ public class PlayerController : MonoBehaviour
 
 			//increase hunger over time
 			currentHunger += hungerGain;
+			hungerUpdateEvent.Invoke(currentHunger);
 			if (currentHunger % 10 <= 0.1)
 			{
 				Debug.Log("Hunger bar: " + currentHunger);
