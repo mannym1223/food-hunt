@@ -129,9 +129,13 @@ MonoBehaviour:
   jumpForce: 55
   gravityModifier: 2
   mainCamera: {fileID: 8109130586060977971}
-  maxHunger: 10000
+  maxHunger: 500
   hungerGain: 1
   knockbackForce: 50
+  hungerWaitTime: 0.1
+  playerPickupEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1185361447335027147
 GameObject:
   m_ObjectHideFlags: 0

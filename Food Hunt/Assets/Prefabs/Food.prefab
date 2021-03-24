@@ -110,7 +110,7 @@ MonoBehaviour:
   rotateSpeed: 15
   elevateSpeed: 0.3
   moveDist: 0.8
-  calories: 400
+  calories: 200
 --- !u!82 &2372867891076296780
 AudioSource:
   m_ObjectHideFlags: 0

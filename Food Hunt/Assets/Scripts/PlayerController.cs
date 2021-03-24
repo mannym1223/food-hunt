@@ -23,12 +23,17 @@ public class PlayerController : MonoBehaviour
 	private static float currentHunger;
 	private static bool stopPlayer;
 
+	//amount of time to wait between hunger updates
+	public float hungerWaitTime;
+	public WaitForSeconds waitForHunger;
+
 	//event to alert other classes that player picked up item
 	public UnityEvent playerPickupEvent;
 
 	private void Awake()
 	{
 		playerBody = GetComponent<Rigidbody>();
+		waitForHunger = new WaitForSeconds(hungerWaitTime);
 	}
 
 	// Start is called before the first frame update
@@ -37,7 +42,7 @@ public class PlayerController : MonoBehaviour
 		Physics.gravity *= gravityModifier;
 		currentHunger = 0f;
 		stopPlayer = false;
-		Debug.Log("Time Scale: " + Time.timeScale);
+		StartCoroutine(UpdateHunger());
 	}
 
 	// Update is called once per frame
@@ -60,19 +65,27 @@ public class PlayerController : MonoBehaviour
 			PlayerJump();
 		}
 		MovePlayer();
+	}
 
-		//reached hunger limit
-		if (currentHunger >= maxHunger) {
-			Debug.Log("Game Over");
-			return;
-		}
-		//increase hunger over time
-		currentHunger += hungerGain;
-		if (currentHunger % 100 <= 0.1)
+	private IEnumerator UpdateHunger()
+	{
+		//keep updating while player is active and hunger limit not reached
+		while (!stopPlayer && currentHunger <= maxHunger)
 		{
-			Debug.Log("Hunger bar: " + currentHunger);
+			yield return waitForHunger;
+
+			//increase hunger over time
+			currentHunger += hungerGain;
+			if (currentHunger % 10 <= 0.1)
+			{
+				Debug.Log("Hunger bar: " + currentHunger);
+			}
 		}
-		
+		//reached hunger limit
+		if (currentHunger >= maxHunger)
+		{
+			Debug.Log("Game Over");
+		}
 	}
 
 	/*** Stops all player movement ***/
