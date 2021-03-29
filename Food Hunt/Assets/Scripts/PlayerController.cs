@@ -57,14 +57,15 @@ public class PlayerController : MonoBehaviour
 		//don't let player move if not active
 		if (stopPlayer)
 		{
-			//Debug.Log("Stop player == true");
 			return;
 		}
 		//read inputs from player
-		horizontal = Input.GetAxis("Horizontal");
-		vertical = Input.GetAxis("Vertical");
+		horizontal = Input.GetAxisRaw("Horizontal");
+		vertical = Input.GetAxisRaw("Vertical");
 		jumpInput = Input.GetButton("Jump");
-
+	}
+	private void FixedUpdate()
+	{
 		//check if player can jump
 		if (jumpInput && !jumping)
 		{
@@ -83,10 +84,6 @@ public class PlayerController : MonoBehaviour
 			//increase hunger over time
 			currentHunger += hungerGain;
 			hungerUpdateEvent.Invoke(currentHunger);
-			if (currentHunger % 10 <= 0.1)
-			{
-				Debug.Log("Hunger bar: " + currentHunger);
-			}
 		}
 		//reached hunger limit
 		if (currentHunger >= maxHunger)
@@ -116,19 +113,19 @@ public class PlayerController : MonoBehaviour
 	/*** Move player based on inputs ***/
 	private void MovePlayer() {
 		//base movement on camera view
-		Vector3 moveForward = mainCamera.transform.forward;
-		Vector3 moveRight = mainCamera.transform.right;
-		//prevent movement on y axis
-		moveForward.y = 0f;
-		moveRight.y = 0f;
+		Vector3 forward = mainCamera.transform.forward;
+		Vector3 right = mainCamera.transform.right;
+		//prevent excessive movement on y axis
+		forward *= vertical;
+		forward.y = 0f;
+		right *= horizontal;
+		right.y = 0f;
 		//keep speed consistent
-		moveForward.Normalize();
-		moveRight.Normalize();
+		forward.Normalize();
+		right.Normalize();
 
-		//move player left or right
-		transform.Translate(moveRight * horizontal * speed * Time.deltaTime);
-		//move player forward or backward
-		transform.Translate(moveForward * vertical * speed * Time.deltaTime);
+		//move player
+		playerBody.MovePosition(transform.position + (forward + right) * speed * Time.deltaTime);
 	}
 
 	/*** Knock player back in opposite direction of given transform ***/
