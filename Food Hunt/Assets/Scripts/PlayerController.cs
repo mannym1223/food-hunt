@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 {
 	public float speed;
 	public float jumpForce;
-	public float gravityModifier;
+	//public float gravityModifier;
 	public Camera mainCamera;
 	public float maxHunger; //amount of hunger player can have
 	public float hungerGain; //controls how fast player gets hungry
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		Physics.gravity *= gravityModifier;
+		//Physics.gravity *= gravityModifier;
 		currentHunger = 0f;
 		stopPlayer = false;
 		StartCoroutine(UpdateHunger());
