@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 {
 	public float speed;
 	public float jumpForce;
-	//public float gravityModifier;
 	public Camera mainCamera;
 	public float maxHunger; //amount of hunger player can have
 	public float hungerGain; //controls how fast player gets hungry
@@ -45,7 +44,6 @@ public class PlayerController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		//Physics.gravity *= gravityModifier;
 		currentHunger = 0f;
 		stopPlayer = false;
 		StartCoroutine(UpdateHunger());
@@ -121,11 +119,11 @@ public class PlayerController : MonoBehaviour
 		right *= horizontal;
 		right.y = 0f;
 		//keep speed consistent
-		forward.Normalize();
-		right.Normalize();
-
+		Vector3 direction = (forward + right).normalized;
+		
 		//move player
-		playerBody.MovePosition(transform.position + (forward + right) * speed * Time.deltaTime);
+		playerBody.MovePosition(transform.position + direction * speed * Time.deltaTime);
+
 	}
 
 	/*** Knock player back in opposite direction of given transform ***/
