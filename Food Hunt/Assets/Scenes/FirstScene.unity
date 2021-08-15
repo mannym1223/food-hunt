@@ -2556,6 +2556,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1938402098597628602, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1938402098597628603, guid: 965105accf75f0649aac11bd5ebe4f00,
         type: 3}
       propertyPath: playerPickupEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
