@@ -2441,10 +2441,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1342574016}
   cameraSpeed: 10
-  cameraOffset: {x: 0, y: 1.5, z: -5}
+  cameraOffset: {x: 0, y: 1.5, z: -7}
   collisionPadding: 2
   angleOffset: {x: 20, y: 0, z: 0}
-  damping: 4
+  damping: 3
   minPitch: -30
   maxPitch: 60
   mask:
@@ -2589,12 +2589,12 @@ PrefabInstance:
     - target: {fileID: 1938402098597628603, guid: 965105accf75f0649aac11bd5ebe4f00,
         type: 3}
       propertyPath: knockbackForce
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1938402098597628603, guid: 965105accf75f0649aac11bd5ebe4f00,
         type: 3}
       propertyPath: jumpForce
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1938402098597628604, guid: 965105accf75f0649aac11bd5ebe4f00,
         type: 3}

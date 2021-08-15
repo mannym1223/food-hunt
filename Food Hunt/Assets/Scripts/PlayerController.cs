@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
 	private static float currentHunger;
 	private static bool stopPlayer;
 
+	private bool isKnockedback;
+
 	//amount of time to wait between hunger updates
 	public float hungerWaitTime;
 	public WaitForSeconds waitForHunger;
@@ -46,6 +48,8 @@ public class PlayerController : MonoBehaviour
 	{
 		currentHunger = 0f;
 		stopPlayer = false;
+		jumping = false;
+		isKnockedback = false;
 		StartCoroutine(UpdateHunger());
 	}
 
@@ -53,7 +57,7 @@ public class PlayerController : MonoBehaviour
 	void Update()
 	{
 		//don't let player move if not active
-		if (stopPlayer)
+		if (stopPlayer || isKnockedback)
 		{
 			return;
 		}
@@ -129,20 +133,35 @@ public class PlayerController : MonoBehaviour
 	/*** Knock player back in opposite direction of given transform ***/
 	private void KnockbackPlayer(Transform givenTransform)
 	{
+		Vector3 direction = givenTransform.forward + givenTransform.right + givenTransform.up;
+		direction.y += 1f;
+		direction.Normalize();
+
+		//reset velocity of player
+		playerBody.velocity.Set(0f, 0f, 0f);
+
 		//push player in opposite direction of object
-		playerBody.AddForce(givenTransform.forward.normalized * knockbackForce, ForceMode.Impulse);
+		playerBody.AddForce(direction * knockbackForce, ForceMode.Impulse);
+		isKnockedback = true;
 	}
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		//player is not midair anymore
-		jumping = false;
-
 		//check if player hit enemy
 		if (collision.gameObject.CompareTag("Enemy"))
+		{	
+			//knockback player if not already being knocked back
+			if (!isKnockedback)
+			{
+				KnockbackPlayer(collision.transform);
+			}
+		}
+		else
 		{
-			//knockback player
-			KnockbackPlayer(collision.transform);
+			//player is not midair anymore
+			jumping = false;
+			//player is not being knocked back anymore
+			isKnockedback = false;
 		}
 	}
 
@@ -164,5 +183,10 @@ public class PlayerController : MonoBehaviour
 		if (currentHunger < 0) {
 			currentHunger = 0f;
 		}
+	}
+
+	private void OnDestroy()
+	{
+		StopAllCoroutines();
 	}
 }

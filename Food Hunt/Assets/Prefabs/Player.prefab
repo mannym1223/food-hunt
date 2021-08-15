@@ -128,7 +128,7 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   maxHunger: 500
   hungerGain: 2
-  knockbackForce: 5
+  knockbackForce: 9
   hungerWaitTime: 0.1
   playerPickupEvent:
     m_PersistentCalls:
