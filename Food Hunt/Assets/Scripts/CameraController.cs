@@ -6,87 +6,76 @@ public class CameraController : MonoBehaviour
 {
     public GameObject player;
     public float cameraSpeed;
-    public float minDistance;
-    [HideInInspector]
-    public float maxDistance;
-    [Tooltip("Amount of space to put between camera and obstacles when present")]
-    public float padding;
+    public Vector3 cameraOffset;
+    public float collisionPadding;
+    public Vector3 angleOffset;
+    [Tooltip("The damping factor to smooth the changes in position and rotation of the camera.")]
+    public float damping;
+    public float minPitch;
+    public float maxPitch;
 
-    private float mouseX;
-    private float mouseY;
-    private Vector3 angleOffset;
-    private float angleHorizontal = 0f;
-    private float angleVertical = 0f;
-
-    private Vector3 currentOffset;
     private RaycastHit hit;
     public LayerMask mask;
 
+    private Vector3 currentOffset;
+    private float offsetScale = 1f;
+    private float angleX = 0.0f;
+    private float maxMagnitude;
+
     private void Start()
     {
-        //don't show mouse cursor on screen
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        currentOffset = transform.position - player.transform.position;
-        maxDistance = currentOffset.magnitude;
-        angleOffset = transform.rotation.eulerAngles;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //get player mouse input
-        mouseX = Input.GetAxis("Mouse X");
-        mouseY = Input.GetAxis("Mouse Y");
+        currentOffset = cameraOffset;
+        maxMagnitude = cameraOffset.magnitude;
     }
 
     private void FixedUpdate()
     {
-        Vector3 direction = currentOffset;
-
-        if (Physics.Raycast(player.transform.position, direction, out hit, maxDistance, mask))
+        if (Physics.Raycast(player.transform.position, currentOffset, out hit, maxMagnitude, mask))
         {
             Debug.DrawLine(player.transform.position, hit.point, Color.red);
             //only change magnitude of offset between player and camera
-            currentOffset *= (hit.point - player.transform.position).magnitude / currentOffset.magnitude;
+            offsetScale = (hit.point - player.transform.position).magnitude / (currentOffset.magnitude + collisionPadding);
         }
         else
         {
             Debug.DrawLine(player.transform.position, transform.position, Color.yellow);
-            currentOffset *= maxDistance / currentOffset.magnitude;
+            offsetScale = 1f;
         }
     }
 
     private void LateUpdate()
     {
+        float mx, my;
+        mx = Input.GetAxis("Mouse X");
+        my = Input.GetAxis("Mouse Y");
+
         // We apply the initial rotation to the camera.
         Quaternion initialRotation = Quaternion.Euler(angleOffset);
 
-        Vector3 rot = transform.rotation.eulerAngles;
+        Vector3 eu = transform.rotation.eulerAngles;
 
-        angleVertical -= mouseY * cameraSpeed * Time.deltaTime;
+        angleX -= my * cameraSpeed;
 
         // We clamp the angle along the X axis to be between the min and max pitch.
-        //angleVertical = Mathf.Clamp(angleVertical, mMinPitch, mMaxPitch);
+        angleX = Mathf.Clamp(angleX, minPitch, maxPitch);
 
-        rot.y += mouseX * cameraSpeed * Time.deltaTime;
-        Quaternion newRot = Quaternion.Euler(angleVertical, rot.y, 0.0f) * initialRotation;
+        eu.y += mx * cameraSpeed;
+        Quaternion newRot = Quaternion.Euler(angleX, eu.y, 0.0f) * initialRotation;
 
         transform.rotation = newRot;
 
-        //base rotation on camera view
-        Vector3 forward = transform.rotation * Vector3.forward;
-        Vector3 right = transform.rotation * Vector3.right;
-        Vector3 up = transform.rotation * Vector3.up;
+        Vector3 forward = transform.rotation * Vector3.forward * cameraOffset.z * offsetScale;
+        Vector3 right = transform.rotation * Vector3.right * cameraOffset.x * offsetScale;
+        Vector3 up = transform.rotation * Vector3.up * cameraOffset.y * offsetScale;
 
-        //move camera
-        Vector3 targetPos = player.transform.position;
-        Vector3 desiredPosition = targetPos
-            + forward * currentOffset.z
-            + right * currentOffset.x
-            + up * currentOffset.y;
+        Vector3 desiredPosition = player.transform.position
+            + forward + right + up;
 
+        desiredPosition = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * damping);
+        
+        currentOffset = desiredPosition - player.transform.position;
         transform.position = desiredPosition;
     }
 }

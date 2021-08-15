@@ -2421,7 +2421,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065599776}
   m_LocalRotation: {x: 0.21865824, y: -0, z: -0, w: 0.9758015}
-  m_LocalPosition: {x: 0, y: 5.91, z: -14.88}
+  m_LocalPosition: {x: 0, y: 4.7, z: -14.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2440,10 +2440,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1342574016}
-  cameraSpeed: 100
-  minDistance: 0.5
-  maxDistance: 0
-  padding: 0.5
+  cameraSpeed: 10
+  cameraOffset: {x: 0, y: 1.5, z: -5}
+  collisionPadding: 2
+  angleOffset: {x: 20, y: 0, z: 0}
+  damping: 4
+  minPitch: -30
+  maxPitch: 60
   mask:
     serializedVersion: 2
     m_Bits: 512
@@ -2572,6 +2575,21 @@ PrefabInstance:
         type: 3}
       propertyPath: hungerUpdateEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: UpdateHungerBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938402098597628603, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 2065599777}
+    - target: {fileID: 1938402098597628603, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: knockbackForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938402098597628603, guid: 965105accf75f0649aac11bd5ebe4f00,
+        type: 3}
+      propertyPath: jumpForce
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1938402098597628604, guid: 965105accf75f0649aac11bd5ebe4f00,
         type: 3}

@@ -124,11 +124,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  jumpForce: 80
+  jumpForce: 10
   mainCamera: {fileID: 0}
   maxHunger: 500
   hungerGain: 2
-  knockbackForce: 1
+  knockbackForce: 5
   hungerWaitTime: 0.1
   playerPickupEvent:
     m_PersistentCalls:
