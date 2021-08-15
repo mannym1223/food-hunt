@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
 	//event to alert that hunger has been updated
 	public UnityEventFloat hungerUpdateEvent;
 
+	//event to alert game over
+	public UnityEvent gameOverEvent;
+
 	private void Awake()
 	{
 		playerBody = GetComponent<Rigidbody>();
@@ -90,7 +93,9 @@ public class PlayerController : MonoBehaviour
 		//reached hunger limit
 		if (currentHunger >= maxHunger)
 		{
+			gameOverEvent.Invoke();
 			Debug.Log("Game Over");
+			DisableMovement();
 		}
 	}
 
@@ -154,6 +159,8 @@ public class PlayerController : MonoBehaviour
 			if (!isKnockedback)
 			{
 				KnockbackPlayer(collision.transform);
+				currentHunger += collision.gameObject.GetComponent<EnemyController>().damage;
+				hungerUpdateEvent.Invoke(currentHunger);
 			}
 		}
 		else
@@ -183,6 +190,7 @@ public class PlayerController : MonoBehaviour
 		if (currentHunger < 0) {
 			currentHunger = 0f;
 		}
+		hungerUpdateEvent.Invoke(currentHunger);
 	}
 
 	private void OnDestroy()

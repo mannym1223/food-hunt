@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class EnemyController : MonoBehaviour
 {
 	public float visionStrength;
 	public GameObject[] path;
+	public float damage;
 
-	private Rigidbody enemyBody;
 	private int currentPath;
 	private Transform playerTransform;
 	private NavMeshAgent agent;
@@ -16,16 +17,10 @@ public class EnemyController : MonoBehaviour
 
 	private void Awake()
 	{
-		enemyBody = GetComponent<Rigidbody>();
 		playerTransform = GameObject.Find("Player").transform;
 		agent = GetComponent<NavMeshAgent>();
 		audio = GetComponent<AudioSource>();
 	}
-
-	// Start is called before the first frame update
-	void Start() {
-		
-    }
 
     // Update is called once per frame
     void Update() {
@@ -58,5 +53,10 @@ public class EnemyController : MonoBehaviour
 
 	private void ChangeDestination(Vector3 destination) {
 		agent.destination = destination;
+	}
+
+	public void StopFollowing()
+	{
+		agent.speed = 0f;
 	}
 }
